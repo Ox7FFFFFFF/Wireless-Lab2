@@ -17,9 +17,9 @@ $ git clone https://github.com/Ox7FFFFFFF/Wireless-Lab2
 ```
 
 * 程式資料夾
-<i class="fa fa-folder-open"></i> LoRaWAN - 與LoRaWAN相關的程式
-<i class="fa fa-folder-open"></i> SX127x - 控制晶片的SPI程式
-<i class="fa fa-file-text"></i> send_ttn.py - 資料送出
-<i class="fa fa-file-text"></i> join_ttn.py - 送出Join封包
-<i class="fa fa-file-text"></i> config.json - Personalized [Dev EUI,AppEUI,AppKey]配置
+   * LoRaWAN - 與LoRaWAN相關的程式
+   * SX127x - 控制晶片的SPI程式
+   * send_ttn.py - 資料送出
+   * join_ttn.py - 送出Join封包
+   * config.json - Personalized [Dev EUI,AppEUI,AppKey]配置
 
