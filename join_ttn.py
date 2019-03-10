@@ -24,12 +24,13 @@ class LoRaWANotaa(LoRa):
         lorawan = LoRaWAN.new([], appkey)
         lorawan.read(payload)
         lorawan.get_payload()
-
+        # 判斷格式是否為JOIN_ACCEPT
         if lorawan.get_mhdr().get_mtype() == MHDR.JOIN_ACCEPT:
             print("get mic: ",lorawan.get_mic())
             print("compute mic: ",lorawan.compute_mic())
             print("valid mic: ",lorawan.valid_mic())
             
+            # 判斷downlink是不是自己的
             if lorawan.valid_mic():
                 devaddr = binary_array_to_hex(lorawan.get_devaddr())
                 nwskey = binary_array_to_hex(lorawan.derive_nwskey(devnonce))
@@ -38,6 +39,7 @@ class LoRaWANotaa(LoRa):
                 print("nwskey :",nwskey)
                 print("appskey:",appskey)
                 
+                # 將收到的devaddr,nwskey,appskey寫到檔案中
                 config = {'devaddr':devaddr,'nwskey':nwskey,'appskey':appskey,'fCnt':0}
                 data = json.dumps(config, sort_keys = True, indent = 4, separators=(',', ': '))
                 fp = open("config.json","w")
@@ -53,7 +55,7 @@ class LoRaWANotaa(LoRa):
     def on_tx_done(self):
         self.clear_irq_flags(TxDone=1)
         print("TxDone")
-        
+        # 切換到rx
         self.set_mode(MODE.STDBY)
         self.set_dio_mapping([0,0,0,0,0,0])
         self.set_invert_iq(1)
@@ -62,6 +64,7 @@ class LoRaWANotaa(LoRa):
         self.set_mode(MODE.RXCONT)
 
     def join(self):
+        # 傳送Join格式封包
         lorawan = LoRaWAN.new(appkey)
         lorawan.create(MHDR.JOIN_REQUEST, {'deveui': deveui, 'appeui': appeui, 'devnonce': devnonce})
         self.write_payload(lorawan.to_raw())
