@@ -79,7 +79,7 @@ def binary_array_to_hex(array):
     return ''.join(format(x, '02x') for x in array)            
 
 # Init
-deveui = list(bytearray.fromhex('0000000000000011'))
+deveui = list(bytearray.fromhex('DEV_EUI'))
 appeui = list(bytearray.fromhex('1234efc7104f1230'))
 appkey = list(bytearray.fromhex('a346b6faef2bd33c16fe9b1d8d47a11d'))
 devnonce = [randrange(256), randrange(256)]
